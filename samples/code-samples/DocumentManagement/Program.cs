@@ -8,6 +8,7 @@
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
+    using Newtonsoft.Json;
 
     // ----------------------------------------------------------------------------------------------------------
     // Prerequistes - 
@@ -47,7 +48,7 @@
     //                                        of new documents to this sproc. Consult this sample for an example
     //                                        of a BulkInsert stored procedure. 
     // ----------------------------------------------------------------------------------------------------------
-    
+
     public class Program
     {
         private static readonly string databaseName = "samples";
@@ -74,7 +75,7 @@
                 connectionPolicy.PreferredLocations.Add(LocationNames.NorthEurope); // second preference
                 connectionPolicy.PreferredLocations.Add(LocationNames.SoutheastAsia); // third preference
 
-                using (client = new DocumentClient(new Uri(endpointUrl), authorizationKey, connectionPolicy))
+                using (client = new DocumentClient(new Uri(endpointUrl), authorizationKey, new JsonSerializerSettings() { DateTimeZoneHandling = DateTimeZoneHandling.Utc }, connectionPolicy))
                 {
                     Initialize().Wait();
 
@@ -301,6 +302,7 @@
                         LineTotal = 419.4589m
                     }
                 },
+                MyDateTimeOffset = DateTimeOffset.Now
             };
 
             // Set the "ttl" property to auto-expire sales orders in 30 days 

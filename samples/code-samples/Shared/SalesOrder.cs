@@ -25,6 +25,7 @@
         public int? TimeToLive { get; set; }
 
         public DateTime OrderDate { get; set; }
+        public DateTimeOffset MyDateTimeOffset { get; set; }
         public DateTime ShippedDate { get; set; }
         public string AccountNumber { get; set; }
         public decimal SubTotal { get; set; }
